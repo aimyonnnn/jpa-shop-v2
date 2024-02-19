@@ -1,7 +1,7 @@
 package jpabook.jpashop;
 
 import org.assertj.core.api.Assertions;
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -20,7 +20,7 @@ public class MemberRepositoryTest {
 
     @Test
     @Transactional
-//    @Rollback(false)
+    @Rollback(false)
     public void testMember() throws Exception {
         //given
         Member member = new Member();
