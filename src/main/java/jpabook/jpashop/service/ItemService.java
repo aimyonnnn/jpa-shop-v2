@@ -1,9 +1,11 @@
 package jpabook.jpashop.service;
 
+import jpabook.jpashop.controller.BookUpdateDto;
 import jpabook.jpashop.domain.item.Book;
 import jpabook.jpashop.domain.item.Item;
 import jpabook.jpashop.repository.ItemRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -42,12 +44,8 @@ public class ItemService {
      * 4. 트랜잭션 커밋 시점에 변경 감지가 실행됩니다.
      */
     @Transactional
-    public void updateItem(Long itemId, String name, int price, int stockQuantity, String author, String isbn) {
-        Book item = (Book) itemRepository.findOne(itemId);
-        item.setName(name);
-        item.setPrice(price);
-        item.setStockQuantity(stockQuantity);
-        item.setAuthor(author);
-        item.setIsbn(isbn);
+    public void updateItem(BookUpdateDto dto) {
+        Book book = (Book) itemRepository.findOne(dto.getId());
+        book.updateBook(dto);
     }
 }
