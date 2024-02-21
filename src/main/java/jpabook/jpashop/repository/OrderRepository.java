@@ -70,4 +70,16 @@ public class OrderRepository {
         return member.name.like("%" + nameCond + "%");
     }
 
+    /**
+     * 엔티티를 페치 조인을 사용해서 쿼리 1번에 조회
+     * 페치 조인으로 order -> member, order -> delivery는 이미 조회된 상태 이므로 지연로딩X
+     */
+    public List<Order> findAllWithMemberDelivery() {
+        return em.createQuery(
+                "select o from Order o" +
+                        " join fetch o.member m" +
+                        " join fetch o.delivery d", Order.class)
+                .getResultList();
+    }
+
 }
