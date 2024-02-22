@@ -82,6 +82,16 @@ public class OrderRepository {
                 .getResultList();
     }
 
+    public List<Order> findAllWithMemberDelivery(int offset, int limit) {
+        return em.createQuery(
+                "select o from Order o" +
+                        " join fetch o.member m" +
+                        " join fetch o.delivery d", Order.class)
+                .setFirstResult(offset)
+                .setMaxResults(limit)
+                .getResultList();
+    }
+
     /**
      * 페치 조인으로 SQL이 1번만 실행됨
      * `distinct` 를 사용한 이유는 1대다 조인이 있으므로 데이터베이스 row가 증가한다.
@@ -104,4 +114,9 @@ public class OrderRepository {
                         " join fetch oi.item i", Order.class)
                 .getResultList();
     }
+
+
+
+
+
 }
